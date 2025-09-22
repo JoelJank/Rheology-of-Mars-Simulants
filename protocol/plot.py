@@ -54,7 +54,7 @@ ax.axvline(500/60, (4904.7/1000)/(max_nstress-min_nstress), (8999/1000)/(max_nst
 ax.axvline(670/60, (4929.3/1000)/(max_nstress-min_nstress), (8969.4/1000)/(max_nstress-min_nstress), color = 'tab:blue', linestyle = 'dashed')
 ax.axvline(795/60, (7262.2/1000)/(max_nstress-min_nstress), (9029.2/1000)/(max_nstress-min_nstress), color = 'tab:blue', linestyle = 'dashed')
 
-ax.set_xlabel(r"$t \ $[min]")
+ax.set_xlabel(r"t [min]")
 ax.set_ylim(min_nstress,max_nstress)
 ax.set_xlim(0,16.5)
 ax.set_yticks(np.arange(0,11,1))
