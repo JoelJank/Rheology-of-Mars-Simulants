@@ -99,7 +99,7 @@ for sheet in sheetnames:
     
     plt.savefig(f"{settings['output_folder']}/{sheet}_original_data.png", dpi=300, bbox_inches='tight')
     
-    #Daten für Mohr-Coulomb speichern
+    #Save data for mohr-coulomb graph
     current_data = np.array(current_data)
     current_data = np.reshape(current_data, (2, len(jump_starts)))
     processed_data.append(current_data)
