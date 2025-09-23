@@ -4,7 +4,6 @@ import math
 import pandas as pd
 import scienceplots
 from matplotlib.ticker import FuncFormatter
-from matplotlib.patches import Circle
 
 inch = 0.0393700787
 fig_width = 180 * inch #in inch
