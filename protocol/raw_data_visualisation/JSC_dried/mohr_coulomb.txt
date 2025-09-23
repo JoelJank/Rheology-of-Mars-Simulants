@@ -1,0 +1,5 @@
+Sheetname 	 m 	 n 	 y-intercept 	 Angle 
+3kPa 	 0.236 	 270.797 	 270.7974 	 13.273
+ [np.float64(318.6), np.float64(689.7), np.float64(1018.0), np.float64(400.0), np.float64(683.6), np.float64(992.9), np.float64(258.6), np.float64(659.2), np.float64(921.5)]6kPa 	 0.239 	 318.248 	 318.2485 	 13.4449
+ [np.float64(318.6), np.float64(689.7), np.float64(1018.0), np.float64(400.0), np.float64(683.6), np.float64(992.9), np.float64(258.6), np.float64(659.2), np.float64(921.5)]9kPa 	 0.22 	 358.561 	 358.5608 	 12.42
+ [np.float64(318.6), np.float64(689.7), np.float64(1018.0), np.float64(400.0), np.float64(683.6), np.float64(992.9), np.float64(258.6), np.float64(659.2), np.float64(921.5)]

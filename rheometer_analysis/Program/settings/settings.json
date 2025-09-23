@@ -1,11 +1,11 @@
 {
-    "input_file": "data/MGS_undried_2runs_20250708.xlsx",
+    "input_file": "C:/AGParteli/Paris/raw_data/JSC_undried_2runs_20250708.xlsx",
     "skip_sheets": 1,
     "ignore_sheets_end": 0,
     "savgol_window_length": 5,
     "savgol_polyorder": 2,
-    "output_folder": "results",
-    "title_of_experiment": "Glass_20250707",
+    "output_folder": "C:/AGParteli/Paris/protocol/raw_data_visualisation/JSC_undried",
+    "title_of_experiment": "JSC_undried",
     "plotstyle": "settings/paper.mplstyle"
 
 }

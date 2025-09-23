@@ -4,6 +4,7 @@ import math
 import pandas as pd
 import scienceplots
 from matplotlib.ticker import FuncFormatter
+from matplotlib.patches import Circle
 
 inch = 0.0393700787
 fig_width = 180 * inch #in inch
@@ -46,7 +47,7 @@ for i in range(1,13):
     
     ax.plot(df["Time"]/60, df["Normal Stress"]/1000, color = 'tab:blue', linestyle= 'solid')
     
-ax2.plot(full_df["Time"]/60, full_df["Shear Stress"]/1000, color = 'tab:red', linestyle = 'solid')
+ax2.plot(full_df["Time"]/60, full_df["Shear Stress"]/1000, color = 'tab:orange', linestyle = 'solid')
 
 ax.axvline(130/60, (2675.1/1000)/(max_nstress-min_nstress), (9018.1/1000)/(max_nstress-min_nstress), color = "tab:blue", linestyle = "dashed")
 ax.axvline(300/60, (2699.5/1000)/(max_nstress-min_nstress), (8950.5/1000)/(max_nstress-min_nstress), color = 'tab:blue', linestyle = 'dashed')
@@ -54,22 +55,26 @@ ax.axvline(500/60, (4904.7/1000)/(max_nstress-min_nstress), (8999/1000)/(max_nst
 ax.axvline(670/60, (4929.3/1000)/(max_nstress-min_nstress), (8969.4/1000)/(max_nstress-min_nstress), color = 'tab:blue', linestyle = 'dashed')
 ax.axvline(795/60, (7262.2/1000)/(max_nstress-min_nstress), (9029.2/1000)/(max_nstress-min_nstress), color = 'tab:blue', linestyle = 'dashed')
 
+ax2.plot(258.6/60, 979.5/1000, marker = "x", color = "tab:red")
+ax2.plot(659.2/60, 1392.5/1000, marker= "x", color = "tab:red")
+ax2.plot(921.5/60, 1973.2/1000, marker = "x", color = "tab:red")
+
 ax.set_xlabel(r"t [min]")
 ax.set_ylim(min_nstress,max_nstress)
 ax.set_xlim(0,16.5)
 ax.set_yticks(np.arange(0,11,1))
-ax.set_ylabel(r"Normal Stress $\sigma_n \ $[kPa]")
+ax.set_ylabel(r"Normal Stress $\sigma_n \ $[kPa]", color = "tab:blue")
 ax.yaxis.set_major_formatter(FuncFormatter(format_ticks))
 
 
 
-ax2.set_ylabel(r"Shear Stress $\tau \ $[kPa]")
+ax2.set_ylabel(r"Shear Stress $\tau \ $[kPa]", color = "tab:orange")
 ax2.set_yticks(np.arange(0,4.5,0.5))
 ax2.set_ylim(min_sstress,max_sstress)
 ax2.yaxis.set_major_formatter(FuncFormatter(format_ticks))
 
 
-plt.savefig("plot.svg", dpi=300, bbox_inches='tight')
+plt.savefig("jsc_dried.svg", dpi=300, bbox_inches='tight')
 
 
 
