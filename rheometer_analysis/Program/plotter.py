@@ -36,6 +36,7 @@ del sheetnames[:settings["skip_sheets"]]
 sheetnames = sheetnames[:-settings["ignore_sheets_end"] or None]
 
 processed_data = []
+timessavgol_max = []
 print("Program started")
 
 for sheet in sheetnames:
@@ -79,6 +80,7 @@ for sheet in sheetnames:
         p2_sav, = ax2.plot(df["Time"][jump_starts[i]:jumps[i]], sav, color="purple", linestyle = "--")
         sav_max = [np.max(sav), list(sav).index(max(sav))]
         p2_max, = ax2.plot(df["Time"][jump_starts[i]+sav_max[1]], sav[sav_max[1]], marker="x", color = "red", linestyle = "None")
+        timessavgol_max.append(df["Time"][jump_starts[i]+sav_max[1]])
         current_data.append(sav[sav_max[1]])
     ax2.set_ylabel("Shear Stress [Pa]")
     ax2.yaxis.label.set_color(p2.get_color())
@@ -135,6 +137,6 @@ plt.savefig(f"{settings['output_folder']}/{settings['title_of_experiment']}_Mohr
 with open(f"{settings['output_folder']}/mohr_coulomb.txt", "w") as f:
     f.write("Sheetname \t m \t n \t y-intercept \t Angle \n")
     for i in range(len(fit_data)):
-        f.write(f"{sheetnames[i]} \t {round(fit_data[i][0],3)} \t {round(fit_data[i][1],3)} \t {fit_data[i][2]} \t {fit_data[i][3]}\n")
+        f.write(f"{sheetnames[i]} \t {round(fit_data[i][0],3)} \t {round(fit_data[i][1],3)} \t {fit_data[i][2]} \t {fit_data[i][3]}\n {timessavgol_max}")
 
 print("Program finished")
