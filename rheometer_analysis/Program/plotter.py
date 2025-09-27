@@ -42,8 +42,8 @@ print("Program started")
 for sheet in sheetnames:
     current_data = []
     df = get_excel_file(settings["input_file"], sheet)
-    time_col = df["Time"].values #Determine switch between different consolidation forces
-    jumps_where = np.where(np.abs(np.diff(time_col)) > 10)[0]
+    time_col = df["Time"].values 
+    jumps_where = np.where(np.abs(np.diff(time_col)) > 10)[0] #Determine switch between different consolidation forces
     jumps_end = jumps_where[-1]+jumps_where[0]+1
     jumps = np.append(jumps_where, jumps_end)
     jump_starts = np.array([0])
