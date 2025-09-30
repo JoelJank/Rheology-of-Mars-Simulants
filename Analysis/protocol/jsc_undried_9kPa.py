@@ -7,7 +7,7 @@ from matplotlib.ticker import FuncFormatter
 
 inch = 0.0393700787
 fig_width = 180 * inch #in inch
-fig_height = 3 # in inch
+fig_height = 2.5 # in inch
 
 min_nstress = 0
 max_nstress = 10
