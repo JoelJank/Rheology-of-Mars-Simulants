@@ -3,9 +3,9 @@ import openpyxl
 import numpy as np
 import matplotlib.pyplot as plt
 
-data = "raw_data/Excels/Glass_15kPa/202509Glass.xlsx"
+data = "H:/AG Parteli\Paris\Rheology-of-Mars-Simulants/Analysis/raw_data/Excel/Glass_15kPa/Glass_15kPa.xlsx"
 
-df = pd.read_excel(data,  sheet_name = "20250919DryG2", 
+df = pd.read_excel(data,  sheet_name = "20250923G0p25", 
                    header = None,
                    names = ["No", "Time", "Gap", "NormForce", "NormStress", "Torque", "ShearStress", "RotSpeed"],
                    skiprows=3).dropna()
@@ -32,6 +32,6 @@ plt.plot(result_df["Time"]/60,result_df["NormStress"], color = "blue")
 plt.plot(result_df["Time"]/60, result_df["ShearStress"], color = "red")
 plt.savefig("test.png", dpi=300)
 
-result_df.to_excel("raw_data/Excels/Glass_15kPa/DryGlas.xlsx", index = False)
+result_df.to_excel("H:/AG Parteli/Paris/Rheology-of-Mars-Simulants/Analysis/raw_data/Excel/Glass_15kPa/Glass_25percentwater.xlsx", index = False)
 
 
