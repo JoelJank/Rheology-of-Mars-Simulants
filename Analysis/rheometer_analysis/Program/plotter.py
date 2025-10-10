@@ -19,7 +19,7 @@ def get_settings_file(Settings_path):
         return json.load(f)
 
 def get_excel_file(Excel_path, Sheet_name):
-    file = pd.read_excel(Excel_path, sheet_name = Sheet_name,header=0, skiprows=[1,2])
+    file = pd.read_excel(Excel_path, sheet_name = Sheet_name,header = 0,names= ["No","Time","Gap","Normal Force","Normal Stress", "Torque", "Shear Stress","Rotational Speed"] , skiprows=[1,2])
     mask = file.apply(lambda row: any(isinstance(x, str) for x in row), axis=1)
     file = file[~mask].dropna().reset_index(drop=True)
     return file
@@ -139,6 +139,6 @@ timessavgol_max = np.array(timessavgol_max)
 with open(f"{settings['output_folder']}/mohr_coulomb.txt", "w") as f:
     f.write("Sheetname \t m \t n \t y-intercept \t Angle \n")
     for i in range(len(fit_data)):
-        f.write(f"{sheetnames[i]} \t {round(fit_data[i][0],3)} \t {round(fit_data[i][1],3)} \t {fit_data[i][2]} \t {fit_data[i][3]}\nTimes_max:{timessavgol_max}\nNormal Stress: {processed_data[i][0]} \nShear Stress max: {processed_data[i][1]}")
+        f.write(f"{sheetnames[i]} \t {round(fit_data[i][0],3)} \t {round(fit_data[i][1],3)} \t {fit_data[i][2]} \t {fit_data[i][3]}\nTimes_max:{timessavgol_max}\nNormal Stress: {processed_data[i][0]} \nShear Stress max: {processed_data[i][1]}\n")
 
 print("Program finished")

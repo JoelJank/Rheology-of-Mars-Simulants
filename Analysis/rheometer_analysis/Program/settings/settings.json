@@ -1,11 +1,10 @@
 {
-    "input_file": "H:/AG Parteli/Paris/Rheology-of-Mars-Simulants/Analysis/raw_data/Excel/Glass_15kPa/Glass_25percentwater.xlsx",
-    "skip_sheets": 0,
+    "input_file": "H:/AG Parteli/Paris/Rheology-of-Mars-Simulants/Analysis/raw_data/Excel/Glass_dried/Glass_dried_1runs_20250708.xlsx",
+    "skip_sheets": 1,
     "ignore_sheets_end": 0,
     "savgol_window_length": 5,
     "savgol_polyorder": 2,
-    "output_folder": "H:/AG Parteli/Paris/Rheology-of-Mars-Simulants/Analysis/raw_data/Results/Glass 15kPa/25%",
-    "title_of_experiment": "Glass_15kPa_25percent",
+    "output_folder": "H:/AG Parteli/Paris/Rheology-of-Mars-Simulants/Analysis/raw_data/Results/Glass dried",
+    "title_of_experiment": "Glass_20%_mixed",
     "plotstyle": "settings/paper.mplstyle"
-
 }
