@@ -19,7 +19,7 @@ def get_settings_file(Settings_path):
         return json.load(f)
 
 def get_excel_file(Excel_path, Sheet_name):
-    file = pd.read_excel(Excel_path, sheet_name = Sheet_name,header = 0,names= ["No","Time","Gap","Normal Force","Normal Stress", "Torque", "Shear Stress","Rotational Speed"] , skiprows=[1,2])
+    file = pd.read_excel(Excel_path, sheet_name = Sheet_name,header = 0,names= ["No","Time","Gap","Normal Force","Normal Stress", "Torque", "Shear Stress","Rotational Speed"] , skiprows=1)
     mask = file.apply(lambda row: any(isinstance(x, str) for x in row), axis=1)
     file = file[~mask].dropna().reset_index(drop=True)
     return file
