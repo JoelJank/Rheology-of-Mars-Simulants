@@ -7,6 +7,11 @@ plt.style.use('paper.mplstyle')
 def flatten(l):
     return list(reduce(lambda x, y: x + y, l, []))
 
+
+hanley_data = pd.read_csv('Hanley et al\dryglass.csv', header = None, names = ["ns", "ss"], sep = ';')
+print(hanley_data)
+
+
 dried3kPa_ns = [825.06991984, 1607.13346693, 2338.56472946]
 dried3kPa_ss = [348.77485714, 442.64571429, 558.05571429]
 dried6kPa_ns = [1689.12945892, 3284.09058116, 4718.03527054]
@@ -36,7 +41,10 @@ w10per6kPa_ss = [789.33685714,  950.62, 1145.53714286]
 w10per9kPa_ns = [2758.4242485,  5011.73667335, 7138.44488978]
 w10per9kPa_ss = [984.92257143, 1266.84, 1539.59428571]
 
-plt.plot(sorted(flatten([dried3kPa_ns, dried6kPa_ns, dried9kPa_ns])), sorted(flatten([dried3kPa_ss, dried6kPa_ss, dried9kPa_ss])), 'o--', label='3, 6, 9 kPa dried')
+dried = plt.plot(sorted(flatten([dried3kPa_ns, dried6kPa_ns, dried9kPa_ns])), sorted(flatten([dried3kPa_ss, dried6kPa_ss, dried9kPa_ss])), 'o--', label='3, 6, 9 kPa dried', marker = "None")
+plt.plot(dried3kPa_ns, dried3kPa_ss, 'o', color = dried[0].get_color(), linestyle = "None")
+plt.plot(dried6kPa_ns, dried6kPa_ss, 'v', color = dried[0].get_color(), linestyle = "None")
+plt.plot(dried9kPa_ns, dried9kPa_ss, 'h', color = dried[0].get_color(), linestyle = "None")
 plt.plot(sorted(flatten([ w10per6kPa_ns, w10per9kPa_ns])), sorted(flatten([ w10per6kPa_ss, w10per9kPa_ss])), 'o--', label=' 6, 9 kPa 10$\%$ water')
 plt.plot(sorted(flatten([w20per3kPa_ns, w20per6kPa_ns, w20per9kPa_ns])), sorted(flatten([w20per3kPa_ss, w20per6kPa_ss, w20per9kPa_ss])), 'o--', label='3, 6, 9 kPa $20\%$ water')
 plt.plot(p15dried_ns, p15dried_ss, 'o-', label='15 kPa dried')
@@ -44,6 +52,7 @@ plt.plot(p15driedall_ns, p15driedall_ss, 'o-', label='Full dried')
 plt.plot(p15w5per_ns, p15w5per_ss, 'o-', label=r'15 kPa 5$\%$ water')
 plt.plot(p15w15per_ns, p15w15per_ss, 'o-', label=r'15 kPa 15$\%$ water')
 plt.plot(p15w25per_ns, p15w25per_ss, 'o-', label=r'15 kPa 25$\%$ water')
+plt.plot(hanley_data['ns'][:5], hanley_data['ss'][:5], color = 'lightgray', label='Hanley et al. (2015)', linestyle = "None" , marker = 'D')
 plt.xlabel("Normal Stress (Pa)")
 plt.ylabel("Shear Stress (Pa)")
 plt.legend(loc='upper left')
