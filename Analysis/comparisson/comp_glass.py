@@ -43,22 +43,37 @@ w10per9kPa_ns = [2758.4242485,  5011.73667335, 7138.44488978]
 w10per9kPa_ss = [984.92257143, 1266.84, 1539.59428571]
 
 x = np.linspace(0, sorted(flatten([dried3kPa_ns, dried6kPa_ns, dried9kPa_ns]))[-1],1000)
+x10 = np.linspace(0, sorted(flatten([ w10per6kPa_ns, w10per9kPa_ns]))[-1],1000)
+x20 = np.linspace(0, sorted(flatten([ w20per3kPa_ns, w20per6kPa_ns, w20per9kPa_ns]))[-1],1000)
+xhanley = np.linspace(0, hanley_data['ns'][4], 1000)
+
 def lin_fit(x, slope, intercept):
     return slope * x + intercept
 
 slope, intercept, r_value, p_value, std_err = scipy.stats.linregress(sorted(flatten([dried3kPa_ns, dried6kPa_ns, dried9kPa_ns])), sorted(flatten([dried3kPa_ss, dried6kPa_ss, dried9kPa_ss])))
-dried = plt.plot(x,lin_fit(x, slope, intercept), 'o--', label=f'3, 6, 9 kPa dried, $R^2 = {r_value}$', marker = "None")
+dried = plt.plot(x,lin_fit(x, slope, intercept), 'o--', label=f'dried, $R^2 = {r_value}$', marker = "None", color = "#FF0000")
 plt.plot(dried3kPa_ns, dried3kPa_ss, 'o', color = dried[0].get_color(), linestyle = "None")
 plt.plot(dried6kPa_ns, dried6kPa_ss, 'v', color = dried[0].get_color(), linestyle = "None")
 plt.plot(dried9kPa_ns, dried9kPa_ss, 'h', color = dried[0].get_color(), linestyle = "None")
-plt.plot(sorted(flatten([ w10per6kPa_ns, w10per9kPa_ns])), sorted(flatten([ w10per6kPa_ss, w10per9kPa_ss])), 'o--', label=' 6, 9 kPa 10$\%$ water')
-plt.plot(sorted(flatten([w20per3kPa_ns, w20per6kPa_ns, w20per9kPa_ns])), sorted(flatten([w20per3kPa_ss, w20per6kPa_ss, w20per9kPa_ss])), 'o--', label='3, 6, 9 kPa $20\%$ water')
-plt.plot(p15dried_ns, p15dried_ss, 'o-', label='15 kPa dried')
-plt.plot(p15driedall_ns, p15driedall_ss, 'o-', label='Full dried')
-plt.plot(p15w5per_ns, p15w5per_ss, 'o-', label=r'15 kPa 5$\%$ water')
-plt.plot(p15w15per_ns, p15w15per_ss, 'o-', label=r'15 kPa 15$\%$ water')
-plt.plot(p15w25per_ns, p15w25per_ss, 'o-', label=r'15 kPa 25$\%$ water')
+slope10,intercept10, r_value10, p_value10, std_err10 = scipy.stats.linregress(sorted(flatten([w10per6kPa_ns, w10per9kPa_ns])), sorted(flatten([w10per6kPa_ss, w10per9kPa_ss])))
+ten_percent = plt.plot(x10,lin_fit(x10,slope10, intercept10), 'o--', label=f'10$\%$ water, $R^2 = {r_value10}$', marker = "None", color = "#990066")
+plt.plot(w10per6kPa_ns, w10per6kPa_ss, 'v', color = ten_percent[0].get_color(), linestyle = "None")
+plt.plot(w10per9kPa_ns, w10per9kPa_ss, 'h', color = ten_percent[0].get_color(), linestyle = "None")
+slope20, intercept20, r_value20, p_value20, std_err20 = scipy.stats.linregress(sorted(flatten([w20per3kPa_ns, w20per6kPa_ns, w20per9kPa_ns])), sorted(flatten([w20per3kPa_ss, w20per6kPa_ss, w20per9kPa_ss])))
+twenty_per = plt.plot(x20, lin_fit(x20, slope20, intercept20), 'o--', label=f'20$\%$ water, $R^2 = {r_value20}$', marker = "None", color = '#3300CC')
+plt.plot(w20per3kPa_ns, w20per3kPa_ss, 'o', color = twenty_per[0].get_color(), linestyle = "None")
+plt.plot(w20per6kPa_ns, w20per6kPa_ss, 'v', color = twenty_per[0].get_color(), linestyle = "None")
+plt.plot(w20per9kPa_ns, w20per9kPa_ss, 'h', color = twenty_per[0].get_color(), linestyle = "None")
+
+
+plt.plot(p15dried_ns, p15dried_ss, 's-', label='dried',color= "#FF0000")
+plt.plot(p15w5per_ns, p15w5per_ss, 's-', label=r'5$\%$ water', color = '#CC0033')
+plt.plot(p15w15per_ns, p15w15per_ss, 's-', label=r'15$\%$ water', color = '#660099')
+plt.plot(p15w25per_ns, p15w25per_ss, 's-', label=r'25$\%$ water', color = '#0000FF')
+slopehanley, intercepthanley, r_valuehanley, p_valuehanley, std_errhanley = scipy.stats.linregress(hanley_data['ns'][:4], hanley_data['ss'][:4])
+plt.plot(xhanley, lin_fit(xhanley, slopehanley, intercepthanley), 'o--', label = f'Hanley et al. (2015), $R^2 = {r_valuehanley}$', marker = "None", color = 'lightgray')
 plt.plot(hanley_data['ns'][:4], hanley_data['ss'][:4], color = 'lightgray', label='Hanley et al. (2015)', linestyle = "None" , marker = 'D')
+plt.plot(p15driedall_ns, p15driedall_ss, 's-', label='10-10-2025', color = 'orange')
 plt.xlabel("Normal Stress (Pa)")
 plt.ylabel("Shear Stress (Pa)")
 plt.legend(loc='upper left')
