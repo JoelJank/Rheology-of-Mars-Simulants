@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.lines import Line2D
 import pandas as pd
 from functools import reduce
 import scipy.stats
@@ -50,32 +51,62 @@ xhanley = np.linspace(0, hanley_data['ns'][4], 1000)
 def lin_fit(x, slope, intercept):
     return slope * x + intercept
 
-slope, intercept, r_value, p_value, std_err = scipy.stats.linregress(sorted(flatten([dried3kPa_ns, dried6kPa_ns, dried9kPa_ns])), sorted(flatten([dried3kPa_ss, dried6kPa_ss, dried9kPa_ss])))
-dried = plt.plot(x,lin_fit(x, slope, intercept), 'o--', label=f'dried, $R^2 = {r_value}$', marker = "None", color = "#FF0000")
+slope, intercept, r_value, p_value, std_err = scipy.stats.linregress(sorted(flatten([dried3kPa_ns, dried6kPa_ns, dried9kPa_ns, p15driedall_ns[0:3],p15dried_ns[0:3]])), sorted(flatten([dried3kPa_ss, dried6kPa_ss, dried9kPa_ss, p15driedall_ss[0:3],p15dried_ss[0:3]])))
+dried = plt.plot(x,lin_fit(x, slope, intercept), linestyle = '-', label=f'dried, $R^2 = {round(r_value,3)}$', marker = "None", color = '#BAE6FD')
 plt.plot(dried3kPa_ns, dried3kPa_ss, 'o', color = dried[0].get_color(), linestyle = "None")
 plt.plot(dried6kPa_ns, dried6kPa_ss, 'v', color = dried[0].get_color(), linestyle = "None")
 plt.plot(dried9kPa_ns, dried9kPa_ss, 'h', color = dried[0].get_color(), linestyle = "None")
+plt.plot(p15w5per_ns[2:], p15w5per_ss[2:], 's', color = '#7DD3FC', alpha = 0.5, linestyle = ":")
+plt.plot(p15w5per_ns[0:3], p15w5per_ss[0:3], 's-', label=r'5$\%$ water', color = '#7DD3FC')
+plt.plot(p15driedall_ns[:3], p15driedall_ss[:3], 's', color = dried[0].get_color(), linestyle = "None")
+plt.plot(p15dried_ns[:3], p15dried_ss[:3], 's', color = dried[0].get_color(), linestyle = "None")
 slope10,intercept10, r_value10, p_value10, std_err10 = scipy.stats.linregress(sorted(flatten([w10per6kPa_ns, w10per9kPa_ns])), sorted(flatten([w10per6kPa_ss, w10per9kPa_ss])))
-ten_percent = plt.plot(x10,lin_fit(x10,slope10, intercept10), 'o--', label=f'10$\%$ water, $R^2 = {r_value10}$', marker = "None", color = "#990066")
+ten_percent = plt.plot(x10,lin_fit(x10,slope10, intercept10), linestyle = '-', label=f'10$\%$ water, $R^2 = {round(r_value10,3)}$', marker = "None", color = '#60A5FA')
 plt.plot(w10per6kPa_ns, w10per6kPa_ss, 'v', color = ten_percent[0].get_color(), linestyle = "None")
 plt.plot(w10per9kPa_ns, w10per9kPa_ss, 'h', color = ten_percent[0].get_color(), linestyle = "None")
+plt.plot(p15w15per_ns[2:], p15w15per_ss[2:], 's', color = '#3B82F6', alpha = 0.5, linestyle = ":")
+plt.plot(p15w15per_ns[0:3], p15w15per_ss[0:3], marker = 's', linestyle = '-', label=r'15$\%$ water', color = '#3B82F6')
 slope20, intercept20, r_value20, p_value20, std_err20 = scipy.stats.linregress(sorted(flatten([w20per3kPa_ns, w20per6kPa_ns, w20per9kPa_ns])), sorted(flatten([w20per3kPa_ss, w20per6kPa_ss, w20per9kPa_ss])))
-twenty_per = plt.plot(x20, lin_fit(x20, slope20, intercept20), 'o--', label=f'20$\%$ water, $R^2 = {r_value20}$', marker = "None", color = '#3300CC')
+twenty_per = plt.plot(x20, lin_fit(x20, slope20, intercept20), linestyle = '-', label=f'20$\%$ water, $R^2 = {round(r_value20,3)}$', marker = "None", color = '#1E3A8A')
 plt.plot(w20per3kPa_ns, w20per3kPa_ss, 'o', color = twenty_per[0].get_color(), linestyle = "None")
 plt.plot(w20per6kPa_ns, w20per6kPa_ss, 'v', color = twenty_per[0].get_color(), linestyle = "None")
 plt.plot(w20per9kPa_ns, w20per9kPa_ss, 'h', color = twenty_per[0].get_color(), linestyle = "None")
-
-
-plt.plot(p15dried_ns, p15dried_ss, 's-', label='dried',color= "#FF0000")
-plt.plot(p15w5per_ns, p15w5per_ss, 's-', label=r'5$\%$ water', color = '#CC0033')
-plt.plot(p15w15per_ns, p15w15per_ss, 's-', label=r'15$\%$ water', color = '#660099')
-plt.plot(p15w25per_ns, p15w25per_ss, 's-', label=r'25$\%$ water', color = '#0000FF')
+plt.plot(p15w25per_ns[2:], p15w25per_ss[2:], 's', color = '#000080', alpha = 0.5, linestyle = ":")
+plt.plot(p15w25per_ns[0:3], p15w25per_ss[0:3], 's-', label=r'25$\%$ water', color = '#000080')
 slopehanley, intercepthanley, r_valuehanley, p_valuehanley, std_errhanley = scipy.stats.linregress(hanley_data['ns'][:4], hanley_data['ss'][:4])
-plt.plot(xhanley, lin_fit(xhanley, slopehanley, intercepthanley), 'o--', label = f'Hanley et al. (2015), $R^2 = {r_valuehanley}$', marker = "None", color = 'lightgray')
-plt.plot(hanley_data['ns'][:4], hanley_data['ss'][:4], color = 'lightgray', label='Hanley et al. (2015)', linestyle = "None" , marker = 'D')
-plt.plot(p15driedall_ns, p15driedall_ss, 's-', label='10-10-2025', color = 'orange')
+plt.plot(xhanley, lin_fit(xhanley, slopehanley, intercepthanley),linestyle = '-', label = f'Hanley et al. (2015)', marker = "None", color = 'lightgray')
+plt.plot(hanley_data['ns'][:4], hanley_data['ss'][:4], color = 'lightgray', linestyle = "None" , marker = 'D')
+plt.plot(sorted(flatten([p15driedall_ns[3:],p15dried_ns[2:]])), sorted(flatten([p15driedall_ss[3:],p15dried_ss[2:] ])), 's', color = '#BAE6FD', alpha = 0.5, linestyle = ":")
+plt.axvline(x = 7800, color = 'k', linestyle = '--')
+plt.axvspan(0,7800, color = '#DAA520',alpha = 0.8)
+plt.axvspan(7800,14000, color = '#6B8E23',alpha = 0.5)
 plt.xlabel("Normal Stress (Pa)")
 plt.ylabel("Shear Stress (Pa)")
-plt.legend(loc='upper left')
+handles =[Line2D([0], [0], color=dried[0].get_color(),linestyle = '-'),
+          Line2D([0], [0], color='#7DD3FC',linestyle = '-'),
+          Line2D([0], [0], color=ten_percent[0].get_color(),linestyle = '-'),
+          Line2D([0], [0], color='#3B82F6',linestyle = '-'),
+          Line2D([0], [0], color=twenty_per[0].get_color(),linestyle = '-'),
+          Line2D([0], [0], color='#000080',linestyle = '-'),
+          Line2D([0], [0], color='lightgray',linestyle = '-'),
+]
+labels = ['dried', '5\% water', '10\% water', '15\% water', '20\% water', '25\% water', 'Hanley et al. (2015)']
+legend = plt.legend(
+    handles = handles,
+    labels = labels,
+    loc='center left',
+    frameon=True,
+    fontsize=8,   
+    borderpad=0.2 
+)
+frame = legend.get_frame()
+frame.set_facecolor('white')
+frame.set_edgecolor('black')
+frame.set_linewidth(1.0)
+frame.set_alpha(1)
+legend.set_zorder(10) 
+plt.text(3900, 6500, "Region 1", ha='center', va='center', fontsize = 20, color = 'black')
+plt.text(10900, 6500, "Region 2", ha='center', va='center', fontsize = 20, color = 'black')
 plt.grid()
+plt.xlim(0,14000); plt.ylim(0,7100)
 plt.savefig("Mohr_Coulomb_All_Glass.svg", dpi=300)
