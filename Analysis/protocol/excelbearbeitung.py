@@ -3,14 +3,14 @@ import openpyxl
 import numpy as np
 import matplotlib.pyplot as plt
 
-data = "H:\AG Parteli\Paris\Rheology-of-Mars-Simulants\Analysis/raw_data\Excel\Glass_15kPa\Glass_dried_allnormal.xlsx"
-lower_boundary = 14500
-upper_boundary = 15500
+data = "H:\AG Parteli\Paris\Rheology-of-Mars-Simulants\Analysis/raw_data\Excel\Glass_9kParedo/20251023PSC.xlsx"
+lower_boundary = 8500
+upper_boundary = 9500
 
-df = pd.read_excel(data,  sheet_name = "20251010DryGlass2", 
+df = pd.read_excel(data,  sheet_name = "W17", 
                    header = None,
-                   names = ["No", "Time", "Gap", "NormForce", "NormStress", "Torque", "ShearStress", "RotSpeed"],
-                   skiprows=6).dropna()
+                   names = ["No","Time","Gap","Normal Force","Normal Stress", "Torque", "Shear Stress","Rotational Speed"],
+                   skiprows=4).dropna()
 
 mask = df.apply(lambda row: any(isinstance(x, str) for x in row), axis=1)
 df = df[~mask].dropna().reset_index(drop=True)
@@ -26,15 +26,15 @@ sections = [df.iloc[jumps_where[i]:jumps_where[i+1]].reset_index(drop=True) for 
 filtered_sections = [
     section for section in sections
     if len(section) >= 25
-    and not ((section["NormStress"] >= lower_boundary) & (section["NormStress"] <= upper_boundary)).any()
+    and not ((section["Normal Stress"] >= lower_boundary) & (section["Normal Stress"] <= upper_boundary)).any()
 ]
 
 result_df = pd.concat(filtered_sections, ignore_index= True)
 
-plt.plot(result_df["Time"]/60,result_df["NormStress"], color = "blue")
-plt.plot(result_df["Time"]/60, result_df["ShearStress"], color = "red")
+plt.plot(result_df["Time"]/60,result_df["Normal Stress"], color = "blue")
+plt.plot(result_df["Time"]/60, result_df["Shear Stress"], color = "red")
 plt.savefig("test.png", dpi=300)
 
-result_df.to_excel("H:\AG Parteli\Paris\Rheology-of-Mars-Simulants\Analysis/raw_data\Excel\Glass_15kPa\Glass_dried_2.xlsx", index = False)
+result_df.to_excel("H:\AG Parteli\Paris\Rheology-of-Mars-Simulants\Analysis/raw_data\Excel\Glass_9kParedo/17percent.xlsx", index = False)
 
 
